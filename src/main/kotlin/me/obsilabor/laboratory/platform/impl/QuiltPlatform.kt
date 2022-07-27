@@ -58,7 +58,7 @@ object QuiltPlatform : IPlatform {
             delay(3500)
             spinner.stop("QuiltMC hopefully installed")
             Files.copy(Path.of(workingDirectory.absolutePathString(), "server","quilt-server-launch.jar"), Path.of(Architecture.Platforms.absolutePath, "quiltmc/quiltmc-$build.jar"), StandardCopyOption.REPLACE_EXISTING)
-            Files.copy(Path.of(workingDirectory.absolutePathString(), "server", "server.jar"), Path.of(Architecture.Platforms.absolutePath, "vanilla/vanilla-$mcVersion.jar"), StandardCopyOption.REPLACE_EXISTING)
+            VanillaPlatform.downloadJarFile(Path.of(Architecture.Platforms.absolutePath, "vanilla/vanilla-$mcVersion.jar"), mcVersion, build)
         }
     }
 

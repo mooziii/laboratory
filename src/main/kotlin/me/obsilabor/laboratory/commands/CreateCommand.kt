@@ -29,7 +29,7 @@ class CreateCommand : CliktCommand(
     private val software by argument(
         "software",
         help = "The server-software that should be used for the new server"
-    ).choice(ignoreCase = true, choices = arrayOf("papermc", "quiltmc", "fabricmc", "graphite"))
+    ).choice(ignoreCase = true, choices = arrayOf("papermc", "quiltmc", "vanilla"))
 
     private val version by argument(
         "version",
