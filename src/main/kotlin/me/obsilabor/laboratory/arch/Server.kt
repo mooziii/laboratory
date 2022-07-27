@@ -59,6 +59,7 @@ data class Server(
             }
             val jar = Architecture.findOrCreateJar(resolvedPlatform, mcVersion, platformBuild)
             Files.copy(jar, Path.of(directory.absolutePath, "server.jar"), StandardCopyOption.REPLACE_EXISTING)
+            resolvedPlatform.copyOtherFiles(Path.of(directory.absolutePath), mcVersion, platformBuild)
             val spinner = SpinnerAnimation("Accepting mojang EULA")
             spinner.start()
             val eula = getFile(directory, "eula.txt")
@@ -91,9 +92,8 @@ data class Server(
             args.add("-jar")
             args.add("server.jar")
             args.addAll(processArguments)
-            val process = ProcessBuilder(
-                args,
-            )
+            println(args)
+            val process = ProcessBuilder(args,)
                 .directory(directory)
                 .redirectErrorStream(true)
                 .redirectOutput(ProcessBuilder.Redirect.INHERIT)

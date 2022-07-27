@@ -13,6 +13,7 @@ object Architecture {
         Servers
         Containers
         Platforms
+        Vanilla
         Templates
     }
 
@@ -22,6 +23,7 @@ object Architecture {
     val Servers by lazy { getDirectory(Live, "servers") }
     val Containers by lazy { getDirectory(Root, "containers") }
     val Platforms by lazy { getDirectory(Containers, "platforms") }
+    val Vanilla by lazy { getDirectory(Platforms, "vanilla") }
     val Templates by lazy { getDirectory(Containers, "templates") }
 
     suspend fun findOrCreateJar(platform: IPlatform, version: String, build: String): Path {
