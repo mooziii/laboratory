@@ -36,10 +36,10 @@ object FabricPlatform : IPlatform {
         spinner.start()
         val downloadUrl = httpClient.get("https://meta.fabricmc.net/v2/versions/installer").body<List<FabricInstallerVersion>>().first().url
         spinner.stop("Resolved latest fabricmc installer")
-        downloadFile(downloadUrl, Path.of(path.toFile().parentFile.absolutePath, "fabricmc-installer.jar"))
+        downloadFile(downloadUrl, Path.of(path.toFile().parentFile.absolutePath, "fabric-installer.jar"))
         installServer(
             Path.of(path.toFile().parentFile.absolutePath),
-            Path.of(path.toFile().parentFile.absolutePath, "fabricmc-installer.jar"),
+            Path.of(path.toFile().parentFile.absolutePath, "fabric-installer.jar"),
             mcVersion,
             build
         )
@@ -61,18 +61,18 @@ object FabricPlatform : IPlatform {
             spinner.start()
             delay(3500)
             spinner.stop("FabricMc hopefully installed")
-            Files.copy(Path.of(workingDirectory.absolutePathString(), "server","fabricmc-server-launch.jar"), Path.of(
+            Files.copy(Path.of(workingDirectory.absolutePathString(), "server","fabric-server-launch.jar"), Path.of(
                 Architecture.Platforms.absolutePath, "fabricmc/fabricmc-$build.jar"), StandardCopyOption.REPLACE_EXISTING)
             VanillaPlatform.downloadJarFile(Path.of(Architecture.Platforms.absolutePath, "vanilla/vanilla-$mcVersion.jar"), mcVersion, build)
         }
     }
 
     override suspend fun copyOtherFiles(destinationFolder: Path, mcVersion: String, build: String) {
-        val fabricmcServerLauncherProperties = getFile(destinationFolder.toFile(), "fabricmc-server-launcher.properties")
-        fabricmcServerLauncherProperties.writeText("serverJar=vanilla-$mcVersion.jar")
+        val fabricServerLauncherProperties = getFile(destinationFolder.toFile(), "fabric-server-launcher.properties")
+        fabricServerLauncherProperties.writeText("serverJar=vanilla-$mcVersion.jar")
         Files.copy(Path.of(Architecture.Platforms.absolutePath, "vanilla/vanilla-$mcVersion.jar"), Path.of(destinationFolder.absolutePathString(), "vanilla-$mcVersion.jar"), StandardCopyOption.REPLACE_EXISTING)
         copyFolder(Path.of(Architecture.Platforms.absolutePath, "fabricmc/server/libraries"), Path.of(destinationFolder.absolutePathString(), "libraries"))
-        Files.copy(Path.of(Architecture.Platforms.absolutePath, "fabricmc/server/fabricmc-server-launch.jar"), Path.of(destinationFolder.absolutePathString(), "server.jar"), StandardCopyOption.REPLACE_EXISTING)
+        Files.copy(Path.of(Architecture.Platforms.absolutePath, "fabricmc/server/fabric-server-launch.jar"), Path.of(destinationFolder.absolutePathString(), "server.jar"), StandardCopyOption.REPLACE_EXISTING)
     }
 
     @kotlinx.serialization.Serializable
