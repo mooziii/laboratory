@@ -6,6 +6,7 @@ object PlatformResolver {
     val platforms = hashMapOf<String, IPlatform>(
         "papermc" to PaperPlatform,
         "quiltmc" to QuiltPlatform,
+        "fabricmc" to FabricPlatform,
         "vanilla" to VanillaPlatform,
         "velocity" to VelocityPlatform,
         "waterfall" to WaterfallPlatform
