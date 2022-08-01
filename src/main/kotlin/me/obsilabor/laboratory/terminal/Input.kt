@@ -100,17 +100,15 @@ fun Terminal.chooseServer(query: String): Server? {
                 println(TextColors.brightRed("No server found."))
                 return null
             }
-            servers.addAll(JsonDatabase.servers)
+            if (query.isEmpty() || query.isBlank()) {
+                servers.addAll(JsonDatabase.servers)
+            }
         } else {
             servers = mutableSetOf(server)
         }
     }
-    resolvedServer = if (servers.size > 1) {
-        choose("Multiple servers found, which one did you mean?", servers.map {
+    resolvedServer = choose("Which one did you mean?", servers.map {
             it to it.terminalString
         }) ?: return null
-    } else {
-        servers.first()
-    }
     return resolvedServer
 }
