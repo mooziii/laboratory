@@ -7,6 +7,7 @@ object PlatformResolver {
         "papermc" to PaperPlatform,
         "quiltmc" to QuiltPlatform,
         "fabricmc" to FabricPlatform,
+        "legacyfabric" to LegacyFabricPlatform,
         "vanilla" to VanillaPlatform,
         "velocity" to VelocityPlatform,
         "waterfall" to WaterfallPlatform,
