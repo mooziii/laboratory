@@ -61,7 +61,7 @@ object FabricPlatform : IPlatform {
             val spinner = SpinnerAnimation("Waiting for fabricmc installer to download libraries")
             spinner.start()
             delay(3500)
-            spinner.stop("FabricMc hopefully installed")
+            spinner.stop("FabricMC hopefully installed")
             Files.copy(Path.of(workingDirectory.absolutePathString(), "fabric-server-launch.jar"), Path.of(
                 Architecture.Platforms.absolutePath, "fabricmc/fabricmc-$build.jar"), StandardCopyOption.REPLACE_EXISTING)
             VanillaPlatform.downloadJarFile(Path.of(Architecture.Platforms.absolutePath, "vanilla/vanilla-$mcVersion.jar"), mcVersion, build)
