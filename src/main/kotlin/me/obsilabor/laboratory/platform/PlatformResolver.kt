@@ -8,7 +8,8 @@ object PlatformResolver {
         "quiltmc" to QuiltPlatform,
         "vanilla" to VanillaPlatform,
         "velocity" to VelocityPlatform,
-        "waterfall" to WaterfallPlatform
+        "waterfall" to WaterfallPlatform,
+        "customjar" to CustomJarPlatform
     )
 
     fun resolvePlatform(input: String): IPlatform {
