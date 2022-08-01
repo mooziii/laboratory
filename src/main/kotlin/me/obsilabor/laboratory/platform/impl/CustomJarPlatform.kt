@@ -22,7 +22,7 @@ object CustomJarPlatform : IPlatform {
 
     override suspend fun downloadJarFile(path: Path, mcVersion: String, build: String): Boolean {
         val customJarPath = Path.of(terminal.prompt("Please enter the path to your custom jarfile"))
-        if (Files.exists(path)) {
+        if (Files.exists(customJarPath)) {
             Files.copy(customJarPath, path)
         } else {
             terminal.println(TextColors.brightRed("Invalid path."))
