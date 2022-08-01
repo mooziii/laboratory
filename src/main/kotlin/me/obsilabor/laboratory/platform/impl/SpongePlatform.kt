@@ -45,7 +45,13 @@ object SpongePlatform : IPlatform {
             var link = matcher.group(1)
             if (!link.contains("https://") && !link.equals("../")) {
                 if (link.split("-")[0] == mcVersion) {
-                    link = link.split("-")[1] + link.split("-")[2].removeSuffix("/")
+                    val split1 = link.split("-")[1]
+                    var split2 = ""
+                    if (link.split("-").size == 3) {
+                        split2 += "-"
+                        split2 += link.split("-")[2]
+                    }
+                    link = split1 + split2.removeSuffix("/")
                     set.add(link)
                 }
             }
@@ -54,10 +60,19 @@ object SpongePlatform : IPlatform {
     }
 
     override suspend fun downloadJarFile(path: Path, mcVersion: String, build: String): Boolean {
-        downloadFile(
-            "https://repo.spongepowered.org/service/rest/repository/browse/maven-releases/org/spongepowered/spongevanilla/${mcVersion}-${build}/${jarNamePattern.replace("\$mcVersion", mcVersion).replace("\$build", build)}",
-            path
-        )
+        var url = "https://repo.spongepowered.org/repository/maven-releases/org/spongepowered/spongevanilla/${mcVersion}-${build}/spongevanilla-${mcVersion}-${build}"
+        url += if (mcVersion != "1.12.2") {
+            "-universal.jar"
+        } else {
+            ".jar"
+        }
+        println(url)
+        runCatching {
+            downloadFile(url, path)
+        }.onFailure {
+            it.printStackTrace()
+            return false
+        }
         return true
     }
 }
