@@ -49,9 +49,9 @@ class ServerCommand : CliktCommand(
         override fun run() {
             val server = terminal.chooseServer(query ?: "") ?: return
             if (server != null) {
-                if (terminal.promptYesOrNo(TextColors.brightRed("The server ${server.name} and all its content will be deleted. Are you sure about that?"), default = false)) {
+                if (terminal.promptYesOrNo(TextColors.brightRed("The server ${server.terminalString} and all its content will be deleted. Are you sure about that?"), default = false)) {
                     mainScope.launch {
-                        val spinner = SpinnerAnimation("Deleting server ${server.name}")
+                        val spinner = SpinnerAnimation("Deleting server ${server.terminalString}")
                         JsonDatabase.deleteServer(server)
                         server.directory.deleteRecursively()
                         spinner.stop("Deletion complete")
