@@ -26,7 +26,7 @@ object VanillaPlatform : IPlatform {
     }
 
     override suspend fun downloadJarFile(path: Path, mcVersion: String, build: String): Boolean {
-        val pistonMeta = httpClient.get("https://launchermeta.mojang.com/mc/game/version_manifest_v2.json").body<MojangLauncherMeta>().versions.reversed().last()
+        val pistonMeta = httpClient.get("https://launchermeta.mojang.com/mc/game/version_manifest_v2.json").body<MojangLauncherMeta>().versions.first { it.id == mcVersion }
         val url = httpClient.get(pistonMeta.url).body<JsonObject>()["downloads"]?.jsonObject?.get("server")?.
             jsonObject?.get("url")?.jsonPrimitive?.toString()?.removePrefix("\"")?.removeSuffix("\"") ?: return false
         downloadFile(url, path)
