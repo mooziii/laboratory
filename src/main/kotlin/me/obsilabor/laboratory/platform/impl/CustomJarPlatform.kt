@@ -17,7 +17,7 @@ object CustomJarPlatform : IPlatform {
     }
 
     override suspend fun getBuilds(mcVersion: String): List<String> {
-        return listOf("9", "8", "7", "6", "5",  v"4", "3", "2", "1")
+        return listOf("9", "8", "7", "6", "5", "4", "3", "2", "1")
     }
 
     override suspend fun downloadJarFile(path: Path, mcVersion: String, build: String): Boolean {
